@@ -26,6 +26,8 @@ struct Node {
     }
 };
 */
+//Time Complexiy: O(h)
+//Space complexity: O(h)
 #include<bits/stdc++.h>
 vector<int> leftView(Node *root)
 {
