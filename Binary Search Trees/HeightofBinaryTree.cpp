@@ -1,4 +1,6 @@
-
+//Problem Statement
+//Given the root node , find the height of the node ie; the height of the tree
+/*
 struct Node {
     int data;
     Node *left;
