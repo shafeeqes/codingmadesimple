@@ -74,8 +74,6 @@ vector <int> bottomView(Node *root)
         int dis = element.first;
         vector<int> values = element.second;
         int n = values.size();
-        //Top view
-        //ans.push_back(values[0]);
         //Bottom view
         ans.push_back(values[n-1]);
     }
