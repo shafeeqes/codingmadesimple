@@ -32,6 +32,8 @@ void connect(Node *root)
     
     while(!p.empty()){
         int size = p.size();
+        //Only iterate upto the current size. 
+        //so only current elements will be traversed.
         for(int i =0; i<size; i++){
             Node *curr = p.front();
             p.pop();
