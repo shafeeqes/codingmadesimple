@@ -26,26 +26,29 @@ struct Node {
     }
 };
 */
-//Time Complexiy: O(h)
-//Space complexity: O(h)
-#include<bits/stdc++.h>
+//Time Complexiy: O(n)
+//Space complexity: O(n)
 vector<int> leftView(Node *root)
-{
-   vector<int> ans;
-   if(root == NULL)
-    return ans;
+{   
+    vector<int> ans;
+    if(root == NULL)
+        return ans;
+    queue<Node*> q;
+    q.push(root);
     
-    ans.push_back(root->data);
-    Node *curr = root->left;
-    while(curr){
-        ans.push_back((curr->data));
-        if(curr->left)
-            curr = curr->left;
-        else          
-            //if left is null go right
-            curr= curr->right;
+    while(!q.empty()){
+        int size = q.size();
+        for(int i =0; i<size; i++){
+            Node *curr = q.front();
+            q.pop();
+            if(i==0)
+                ans.push_back((curr->data));
+            if(curr->left)
+                q.push(curr->left);
+            if(curr->right)
+                q.push(curr->right);
+        }
     }
-    
     return ans;
 }
 
