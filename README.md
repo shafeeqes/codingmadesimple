@@ -7,6 +7,8 @@ Binary Search Trees:
 1.Check if BST
 
 1.Height of Binary Tree
+2.Diameter of BT
+3.Max Path Sum
 
 1.Vertical Traversal of a BST
 2.Print top view of a BST
