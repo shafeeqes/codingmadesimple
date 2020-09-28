@@ -48,7 +48,8 @@ struct Node
     }
 };
 */
-
+//Just have to do preOrder traversal to rightside 
+//and reverse the vector at the end;
 vector <int> postOrder(Node* root)
 {
     stack<Node*> s;
