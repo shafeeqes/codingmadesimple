@@ -65,3 +65,26 @@ public:
         return isIdentical(s,t) or isSubtree(s->right,t) or isSubtree(s->left,t);
     }
 };
+
+
+//Alternate , almost similar
+class Solution {
+public:
+    bool isIdentical(TreeNode* r1, TreeNode*r2){
+        if(!r1 or !r2){
+            return !r1 and !r2;
+        } else if(r1->val==r2->val){
+            return isIdentical(r1->right,r2->right) and isIdentical(r1->left,r2->left);
+        }
+        return false;
+    }
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        
+        if(!s)
+            return false;
+        else if(isIdentical(s,t)){
+            return true;
+        } 
+        return isSubtree(s->right,t) or isSubtree(s->left,t);
+    }
+};
