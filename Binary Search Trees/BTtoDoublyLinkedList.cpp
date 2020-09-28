@@ -1,0 +1,108 @@
+/*
+Given a Binary Tree (BT), convert it to a Doubly Linked List(DLL) In-Place. 
+The left and right pointers in nodes are to be used as previous and next pointers
+respectively in converted DLL. The order of nodes in DLL must be same as Inorder 
+of the given Binary Tree. The first node of Inorder traversal (leftmost node in BT) must be the head node of the DLL.
+
+TreeToList
+
+Example 1:
+
+Input:
+      1
+    /  \
+   3    2
+Output:
+3 1 2 
+2 1 3 
+Explanation: DLL would be 3<=>1<=>2
+Example 2:
+
+Input:
+       10
+      /   \
+     20   30
+   /   \
+  40   60
+Output:
+40 20 60 10 30 
+30 10 60 20 40
+Explanation:  DLL would be 
+40<=>20<=>60<=>10<=>30.
+Your Task:
+You don't have to take input. Complete the function bToDLL() that takes root node of the 
+tree as a parameter and returns the head of DLL . The driver code prints the DLL both ways
+*/
+/*struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+ */
+
+
+Node * bToDLL(Node *root)
+{
+    stack<Node*> s;
+    if(root == NULL)
+        return root;
+    Node* curr = root;
+    //Dummy Node
+    Node* head = new Node;
+    
+    //setting null ptr 
+    Node* prev = NULL;
+    
+    //our LLNode pointer
+    Node* currLLNode = head;
+    //Same code for InorderTraversal just when we are popping
+    //the stack change that to DLL Node'
+    do{
+        if(curr==NULL){
+            curr = s.top();
+            s.pop();
+            
+            //set the right of DLL ptr(initially dummy head)
+            //to the curr stack top
+            currLLNode->right = curr;
+            //setting left of DLL pointer to prev(intially NULL
+            currLLNode->left = prev;
+            //setting prev as curr(for next iteration)
+            prev = currLLNode;
+            //moving DLL pointer to right
+            currLLNode = currLLNode->right;
+            
+            curr = curr->right;
+            if(curr){
+                s.push(curr);
+                curr = curr->left;
+            }
+        }
+        else{
+            s.push(curr);
+            curr = curr->left;
+        }
+    }while(!s.empty());
+    
+    //when the loop finishes currLLNode will be tail
+    //set its right pointer to NULL
+    //left pointer to prev
+    Node* tail = currLLNode;
+    tail->left = prev;
+    tail->right = NULL;
+    
+    //move head (currently dummy) to the 
+    //first element
+    head = head->right;
+    //set left of first element as NULL
+    head->left = NULL;
+    
+    return head;
+}
+
