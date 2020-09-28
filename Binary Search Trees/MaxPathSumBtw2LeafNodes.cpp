@@ -57,6 +57,9 @@ struct Node
 int sumPath(Node* node){
     if(!node)
         return 0;
+     //the following conditions are required because
+     //if 0 is returned for a null path and negative is 
+      //returned for a valid path. it'll take zero
     if(!node->right)
         return sumPath(node->left)+node->data;
     if(!node->left)
@@ -66,7 +69,7 @@ int sumPath(Node* node){
 void path_Sum(Node* node,int& maxSum){
     if(!node)
         return;
-    if(!node->right or !node->left)
+    if(!node->right or !node->left) //if node is not a leaf node
         return;
     int pathSum = sumPath(node->left) + sumPath(node->right) + node->data;
     maxSum = max(maxSum,pathSum);
