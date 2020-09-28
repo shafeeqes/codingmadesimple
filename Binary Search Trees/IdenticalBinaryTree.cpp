@@ -58,6 +58,16 @@ bool isIdentical(Node *r1, Node *r2)
     return true;
         
 }
+//Alternate almost similar
+
+ bool isIdentical(TreeNode* r1, TreeNode*r2){
+        if(!r1 or !r2){
+            return !r1 and !r2;
+        } else if(r1->val==r2->val){
+            return isIdentical(r1->right,r2->right) and isIdentical(r1->left,r2->left);
+        }
+        return false;
+    }
 
 //Similar approach
 
