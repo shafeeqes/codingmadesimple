@@ -45,5 +45,4 @@ class Solution:
         A.sort()
         self.ans = []
         self.make(A,[],0,0,target)
-        self.ans.sort()
         return self.ans    
