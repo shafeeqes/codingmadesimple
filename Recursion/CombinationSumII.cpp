@@ -54,6 +54,9 @@ public:
             return;
 
         for(int i=index;i<A.size();i++){
+            //To avoid duplicates
+            //But you still cant pass unique vector instead of A like Combination Sum 1
+            //because we can have elements repeated. only not the same pattern(vector)
             if(i==index || A[i]!=A[i-1]){
                 temp.push_back(A[i]);
                 make(i+1,CurrSum+A[i],temp,A,B,ans);
