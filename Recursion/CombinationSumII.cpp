@@ -26,7 +26,7 @@ A solution set is:
   [5]
 ]
 """
-void make(int index,int CurrSum,vector<int> temp,vector<int> &A,int B,vector<vector<int> > &ans, map<vector<int>,bool> &m)
+void make(int index,int CurrSum,vector<int> temp,vector<int> &A,int B,vector<vector<int> > &ans, unordered_map<vector<int>,bool> &m)
 {
     if(CurrSum>B)
         return;
@@ -53,7 +53,7 @@ vector<vector<int> > Solution::combinationSum(vector<int> &A, int B) {
     vector<vector<int> > ans;
     if(A.size()==0)
         return ans;
-    map<vector<int>,bool> m;
+    unordered_map<vector<int>,bool> m;
     vector<int> temp;        
     sort(A.begin(),A.end());
     
