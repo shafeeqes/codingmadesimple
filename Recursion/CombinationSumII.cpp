@@ -1,4 +1,4 @@
-"""
+/*
 Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
 
 Each number in candidates may only be used once in the combination.
@@ -25,7 +25,11 @@ A solution set is:
   [1,2,2],
   [5]
 ]
-"""
+
+*/
+//Space complexity : O(n)
+//Time complexity 2^n, we are either taking or not taking for all elements
+
 class Solution {
 public:
     vector<vector<int>> combinationSum2(vector<int>& A, int target) {
