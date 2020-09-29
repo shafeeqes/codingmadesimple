@@ -25,6 +25,14 @@ A solution set is:
   [3,5]
 ]
 """
+/*
+same as combination sum 2, but he we can have same element multiple times
+but we still eliminate duplicates in the array
+*/
+/*
+//Space complexity : O(n)
+//Time complexity 2^n, we are either taking or not taking for all elements
+*/
 
 
 void make(int index,int CurrSum,vector<int> temp,vector<int> &A,int target,vector<vector<int> > &ans)
