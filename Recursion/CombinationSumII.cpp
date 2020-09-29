@@ -59,6 +59,7 @@ public:
             //because we can have elements repeated. only not the same pattern(vector)
             if(i==index || A[i]!=A[i-1]){
                 temp.push_back(A[i]);
+              //This is the backtrack step. Append to array, then delete after making calls
                 make(i+1,CurrSum+A[i],temp,A,B,ans);
                 temp.pop_back();
             }
