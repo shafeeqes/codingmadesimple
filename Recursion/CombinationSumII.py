@@ -26,7 +26,10 @@ A solution set is:
   [5]
 ]
 """
-
+"""
+same as Combinations, just use i+1 in recursion
+and also dont make the initial vector unique
+"""
 class Solution:
     def make(self,A,temp,index,currSum,target):
         if currSum> target:
