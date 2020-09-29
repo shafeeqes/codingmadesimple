@@ -25,7 +25,10 @@ A solution set is:
   [3,5]
 ]
 """
-
+"""
+//Space complexity : O(n)
+//Time complexity 2^n, we are either taking or not taking for all elements
+"""
 
 class Solution:
     def make(self,A,temp,index,currsum,reqsum):
