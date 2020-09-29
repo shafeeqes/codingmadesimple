@@ -39,6 +39,7 @@ class Solution:
         for i in range(index,len(A)):
             temp.append(A[i])
             self.make(A,temp,i+1,currSum+A[i],target)
+            # This is the backtrack step. Append to array, then delete after making calls
             temp.pop()
     
     def combinationSum2(self, A: List[int], target: int) -> List[List[int]]:
