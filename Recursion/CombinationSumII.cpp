@@ -26,37 +26,36 @@ A solution set is:
   [5]
 ]
 """
-void make(int index,int CurrSum,vector<int> temp,vector<int> &A,int B,vector<vector<int> > &ans, unordered_map<vector<int>,bool> &m)
-{
-    if(CurrSum>B)
-        return;
-    if(!m[temp] && CurrSum==B)
-    {
-        ans.push_back(temp);
-        m[temp]=true;
-        return;
-    }
-    if (index == A.size())
-        return;
-        
-    for(int i=index;i<A.size();i++)
-    {
-        temp.push_back(A[i]);
-        make(i+1,CurrSum+A[i],temp,A,B,ans,m);
-        temp.pop_back();
-    }
-        
-}
- 
-vector<vector<int> > Solution::combinationSum(vector<int> &A, int B) {
-    
-    vector<vector<int> > ans;
-    if(A.size()==0)
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& A, int target) {
+         vector<vector<int> > ans;
+        if(A.size()==0)
+            return ans;
+        vector<int> temp;        
+        sort(A.begin(),A.end());
+
+        make(0,0,temp,A,target,ans);
         return ans;
-    unordered_map<vector<int>,bool> m;
-    vector<int> temp;        
-    sort(A.begin(),A.end());
-    
-    make(0,0,temp,A,B,ans,m);
-    return ans;
-}
+    }
+    void make(int index,int CurrSum,vector<int> temp,vector<int> &A,int B,vector<vector<int> > &ans)
+    {
+        if(CurrSum>B)
+            return;
+        if(CurrSum==B){
+            ans.push_back(temp);
+            return;
+        }
+        if (index == A.size())
+            return;
+
+        for(int i=index;i<A.size();i++){
+            if(i==index || A[i]!=A[i-1]){
+                temp.push_back(A[i]);
+                make(i+1,CurrSum+A[i],temp,A,B,ans);
+                temp.pop_back();
+            }
+        }
+        
+    }
+};
