@@ -30,20 +30,27 @@ A solution set is:
 same as Combinations, just use i+1 in recursion
 and also dont make the initial vector unique
 """
+"""
+//Space complexity : O(n)
+//Time complexity 2^n, we are either taking or not taking for all elements
+"""
 class Solution:
     def make(self,A,temp,index,currSum,target):
         if currSum> target:
             return
         if currSum == target:
-            if temp not in self.ans:
-                self.ans.append(temp[:])
+            self.ans.append(temp[:])
             return
         
         for i in range(index,len(A)):
-            temp.append(A[i])
-            self.make(A,temp,i+1,currSum+A[i],target)
+             #To avoid duplicates
+            #But you still cant pass unique vector instead of A like Combination Sum 1
+            #because we can have elements repeated. only not the same pattern(vector)   
+            if i==index or A[i]!=A[i-1]:
+                temp.append(A[i])
+                self.make(A,temp,i+1,currSum+A[i],target)
             # This is the backtrack step. Append to array, then delete after making calls
-            temp.pop()
+                temp.pop()
     
     def combinationSum2(self, A: List[int], target: int) -> List[List[int]]:
         A.sort()
