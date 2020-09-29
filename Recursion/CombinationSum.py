@@ -33,6 +33,7 @@ class Solution:
 	        return
         if currsum == reqsum:
 	        self.ans.append(temp[:])
+		return
             
         for i in range(index,len(A)):
 	        temp.append(A[i])
