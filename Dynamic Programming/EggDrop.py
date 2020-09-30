@@ -34,7 +34,7 @@ Output:
 4
 3
 
-
+Solution:
 
 In this post, we will discuss a solution to a general problem with ‘n’ eggs and ‘k’ floors. 
 The solution is to try dropping an egg from every floor(from 1 to k) and recursively calculate 
@@ -88,3 +88,83 @@ The final answer is min(1st, 2nd, 3rd….., kth floor)
 So answer here is ‘2’.
 
 */
+/*
+Formally for filling DP[i][j] state where ‘i’ is the number of eggs and ‘j’ is the number of floors:
+
+We have to traverse for each floor ‘x’ from ‘1’ to ‘j’ and find minimum of:
+(1 + max( DP[i-1][j-1], DP[i][j-x] )).
+This simulation will make things clear:
+
+i => Number of eggs
+j => Number of floors
+Look up find maximum
+Lets fill the table for the following case:
+Floors = ‘4’
+Eggs = ‘2’
+
+1 2 3 4
+
+1 2 3 4 => 1
+
+1 2 2 3 => 2
+
+For ‘egg-1’ each case is the base case so the
+number of attempts is equal to floor number.
+
+For ‘egg-2’ it will take ‘1’ attempt for 1st
+floor which is base case.
+
+For floor-2 =>
+Taking 1st floor 1 + max(0, DP[1][1])
+Taking 2nd floor 1 + max(DP[1][1], 0)
+DP[2][2] = min(1 + max(0, DP[1][1]), 1 + max(DP[1][1], 0))
+
+
+
+For floor-3 =>
+Taking 1st floor 1 + max(0, DP[2][2])
+Taking 2nd floor 1 + max(DP[1][1], DP[2][1])
+Taking 3rd floor 1 + max(0, DP[2][2])
+DP[2][3]= min(‘all three floors’) = 2
+
+For floor-4 =>
+Taking 1st floor 1 + max(0, DP[2][3])
+Taking 2nd floor 1 + max(DP[1][1], DP[2][2])
+Taking 3rd floor 1 + max(DP[1][2], DP[2][1])
+Taking 4th floor 1 + max(0, DP[2][3])
+DP[2][4]= min(‘all four floors’) = 3
+*/
+/*
+Time Complexity: O(n*k^2).
+Where ‘n’ is the number of eggs and ‘k’ is the number of floors, as we use a nested for loop ‘k^2’ times for each egg
+Auxiliary Space: O(n*k).
+As a 2-D array of size ‘n*k’ is used for storing elements.
+*/
+
+def solution(n,k):
+    
+    #floors as columns eggs as rows
+    T = [[0 for x in range(k + 1)] for x in range(n + 1)] 
+    
+    # We need one trial for one floor and0 trials for 0 floors 
+    for i in range(1,n+1):
+        T[i][1] = 1;
+        T[i][0] = 0
+     # We always need j trials for one egg and j floors.
+    for j in range(1,k+1):
+        T[1][j] = j
+    
+    for i in range(2, n + 1): 
+        for j in range(2, k + 1): 
+            T[i][j] = float('inf')
+            for x in range(1, j + 1): 
+                res = 1 + max(T[i-1][x-1], T[i][j-x]) 
+                if res < T[i][j]: 
+                    T[i][j] = res  
+    return T[n][k]    
+
+if __name__ == '__main__':
+    t = int(input())
+    for i in range(t):
+        n,k = [int(i) for i in input().strip().split()]
+        print(solution(n,k))
