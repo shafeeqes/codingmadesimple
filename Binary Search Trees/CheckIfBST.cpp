@@ -52,11 +52,11 @@ bool isBST(Node* root){
 }
 
 //Alt solution
-/*
+
 int isBST(Node* node)  
 {  
     return(isBSTUtil(node, INT_MIN, INT_MAX));  
-}  */
+}  
   
 /* Returns true if the given tree is a BST and its values 
 are >= min and <= max. */
