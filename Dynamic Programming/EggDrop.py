@@ -1,4 +1,4 @@
-/*
+"""/*
 Suppose you have N eggs and you want to determine from which floor in a K-floor building
 you can drop an egg such that it doesn't break. You have to determine the minimum number
 of attempts you need in order find the critical floor in the worst case while using the
@@ -140,6 +140,7 @@ Where ‘n’ is the number of eggs and ‘k’ is the number of floors, as we u
 Auxiliary Space: O(n*k).
 As a 2-D array of size ‘n*k’ is used for storing elements.
 */
+"""
 
 def solution(n,k):
     
