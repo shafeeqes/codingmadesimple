@@ -45,6 +45,10 @@ Output:
 3
 0
 """
+#Time complexity O(n*maxW)
+#Space O(n*maxW)
+
+
 def knapsack(val,weight,maxW):
     n = len(val)
     T = [[0 for w in range(maxW+1)] for i in range(n+1)]
