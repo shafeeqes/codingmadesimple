@@ -20,3 +20,16 @@ Binary Search Trees:
 4.Print right view of a BST
 5.Level Order Traversal in spiral form
 
+Dynamic Programming:
+1.Combination Sum IV
+
+Recursion:
+
+1.CombinationSum
+2.CombinationSumII
+3.CombinationSumIII
+4.Combinations
+5.Subsets.cpp
+
+1.FloodFill.py
+
