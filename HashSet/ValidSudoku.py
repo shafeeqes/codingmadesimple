@@ -42,6 +42,31 @@ Output: false
 Explanation: Same as Example 1, except with the 5 in the top left corner being 
     modified to 8. Since there are two 8's in the top left 3x3 sub-box, it is invalid.
 """
+
+#this solution is an amazing use of Hashsets
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        present = set()
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] != '.':
+                    str1 = board[i][j] + " present in row " + str(i)
+                    str2 = board[i][j] + " present in col " + str(j)
+                    str3 = board[i][j] + " present in box " + str(i//3) +" " + str(j//3)
+                    if str1 in present or str2 in present or str3 in present:
+                        return False
+                    else:
+                        present.add(str1)
+                        present.add(str2)
+                        present.add(str3)
+            
+        return True
+            
+
+
+
+# the below solution doesnt use a hashset but works in a similar way with look up of O(1)
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         
