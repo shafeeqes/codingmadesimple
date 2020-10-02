@@ -44,3 +44,22 @@ public:
         return false;
     }
 };
+
+//Small alteration
+
+class Solution {
+public:
+    bool canJump(vector<int>& A) {
+        int n = A.size();
+        if(n==1)
+            return true;
+        int lastgoodposition = n-1;
+        for(int i = n-2; i >= 0; i--){
+            bool possible = false;
+            if(A[i]+i >= lastgoodposition){
+                lastgoodposition = i;
+            }
+        }  
+        return lastgoodposition == 0;
+    }
+};
