@@ -21,10 +21,10 @@ Explanation: Buy on day 2 (price = 2) and sell on day 3 (price = 6), profit = 6-
 
 
 
-int Solution::solve(vector<int> &A, int b) {
+int Solution::solve(vector<int> &A, int k) {
     
     int n = A.size();
-    int k = min(b,n);
+    k = min(k,n);
     vector<vector<int> > T(k+1, vector<int>(n,0));
     
     for(int i=1;i<T.size();i++){
