@@ -38,6 +38,28 @@ Constraints:
 All characters of s are lower case English letters.
 */
 
+/*
+So imagine the string bcd.. there is a mismatch between b and d, right?
+We can either insert a d before the b, or a 'b' after the 'd'.
+If we insert a b after the d, then the first b is already matched, so then the 
+problem reduces to finding the min insertions for the string 'cd', and then adding 1
+
+If we insert a 'd' before the 'b', then the last d is matched, so problem reduces to 
+finding the min insertions for 'bc', and adding 1. You can then take the minimum of 
+these two options to find the overall minimum number of insertions.
+
+Generalizing this to a dp formula gives:
+min_ins[i][j] = the minimum number of insertions to make the substring from i..j a palindrome
+if s[i] == s[j]: you dont need to insert anything, so it reduces to min_ins[i+1][j-1]
+otherwise: based on the above reasoning, its min(1+min_ins[i+1][j], 1+min_ins[i][j-1]).
+
+Also for a base case, if i==j (a 1 length substring), that substring is already a 
+palindrome by default.
+
+Since I am doing bottom up DP, I need to solve for the smaller length substrings 
+before solving for the larger length substrings
+*/
+
 class Solution {
 public:
     int minInsertions(string str) {
