@@ -14,6 +14,31 @@ Output: ""
 Explanation: There is no common prefix among the input strings.
 */
 
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& A) {
+        int n = A.size();
+        if(n == 0)  return "";
+        
+        string prefix = "";
+        int index = 0;
+        //comparing characters of first string to every other string
+        for(char c:A[0]){
+            for(int i = 1; i < n; i++){
+                // if the index is greater than current string size or the
+                // characters doesnt match
+                if(index >= A[i].size() or c!= A[i][index])
+                    return prefix;
+            }
+            prefix += c;
+            index++;
+        }
+        
+        return prefix;
+    }
+};
+
+//Slower but easier
 
 class Solution {
 public:
