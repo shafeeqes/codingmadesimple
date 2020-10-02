@@ -68,6 +68,7 @@ public:
         int table[n][n];
         memset(table,0,sizeof(table));
         int l,r;
+      //looping over substrings of all length from 1 to n
         for(int len = 1; len<n; len++ ){
             for(l = 0, r=len; r<n; l++,r++){
                 if(str[l]==str[r]){
