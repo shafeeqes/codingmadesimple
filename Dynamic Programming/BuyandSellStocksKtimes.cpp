@@ -26,6 +26,15 @@ int Solution::solve(vector<int> &A, int k) {
     int n = A.size();
     if(n<2) return 0;
     k = min(k,n);
+    
+  // if number of transactions =  n/2; ie, total n buy and sell operations
+    if( 2*k > n){
+      int sum = 0;
+        for(int i = 0; i < n-1 ; i++ ){
+          sum += (A[i+1] - A[i]) > 0 ? A[i+1] - A[i] : 0;
+        }
+      return sum;
+    }
     vector<vector<int> > T(k+1, vector<int>(n,0));
     
     for(int i=1;i<T.size();i++){
