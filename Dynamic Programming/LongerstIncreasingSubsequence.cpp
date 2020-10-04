@@ -98,7 +98,7 @@ public:
         // if A[j] is greater, it can add. so we add +1
         for(int j = 1; j < n; j++){
             for(int i = 0; i < j; i++){
-                if(A[i] < A[j]){
+                if(A[i] < A[j]){            //if(A[i] < A[j] and dp[j]<=dp[i]) this can increase the speed slightly
                     dp[j] = max(dp[j], dp[i]+1);
                 }
             }
