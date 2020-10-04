@@ -34,76 +34,42 @@ Expected Auxiliary Space: O(n).
 
 
 */
-
-// { Driver Code Starts
-#include<bits/stdc++.h>
-using namespace std;
-
- // } Driver Code Ends
-
-
-class Solution
-{
-  public:
-    long long int count( int coins[], int m, int target )
-    {
-        /*we have to recursively reach target so
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+        if (amount == 0)
+            return 1;
+        
+        int n = coins.size();
+	    /*we have to recursively reach target so
         we consider target+1 cols including zero
         and rows are considering 0 elements, then 1, 2
         etc. like [], [1], [1,2], [1,2,3]*/
-        vector<vector<long long int> > T( m+1 , vector<long long int> (target+1,0));
-        /*first column, ways to make zero
+        vector<vector<int>> dp (n + 1 , vector<int>(amount +1,0));
+        
+	 /*first column, ways to make zero
          which will be all 1*/
-        for(int i=0; i<m+1; i++){
-            T[i][0] = 1;
+	   
+        for(int i = 1; i < n+1; i++){
+            dp[i][0] = 1;
         }
-        /* this is the first row no elements of S 
-            are considered. Not required since 
-            we set all values to zero*/
-        /*for(int j=1; j<target+1; j++){
-            T[0][j] = 0;
-        }*/
+	    /*and also first row will all be zeros because we are considering [] , no elements*/
         
-        
-        for(int i=1; i<m+1; i++){
-            for(int j=1;j<target+1;j++){
-                /* if the current coin is greater than the 
-                total coin value , skip
-                */
-                if(coins[i-1]>j)
-                    T[i][j] = T[i-1][j];
-                else
-                    //Total ways is equal to if we skip the current coin
-                    //ie, T[i-1][j] + if we use the coin, then the value will
-                    // be sum of the previos row plus the total amount - this 
-                    // coin value. which is taken from same row
-                    T[i][j] = T[i-1][j] + T[i][j-coins[i-1]]; 
+        for(int i = 1; i < n+1; i++){
+            for(int j = 1; j < amount + 1; j++){
+                int curr_coin = coins[i-1];
+                if(curr_coin <= j){
+		     //total ways is equal to ways to make the difference of current amount and 
+		     //current coin with the current coin present + ways to make this amount with present coins already
+                    dp[i][j] = dp[i-1][j] + dp[i][j-curr_coin];
+                }
+		//if curr_coin is greater than current amount then we just skip and take the amount without this coin from above    
+                else{
+                    dp[i][j] = dp[i-1][j];
+                }
             }
         }
-        return T[m][target];
+        return dp[n][amount];
     }
-        
 };
 
-
-
-
-// { Driver Code Starts.
-int main()
-{
-    int t;
-    cin>>t;
-	while(t--)
-	{
-		int n,m;
-		cin>>n>>m;
-		int arr[m];
-		for(int i=0;i<m;i++)
-		    cin>>arr[i];
-	    Solution ob;
-		cout<<ob.count(arr,m,n)<<endl;
-	}
-    
-    
-    return 0;
-}  // } Driver Code Ends
