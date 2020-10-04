@@ -19,16 +19,22 @@ public:
     int findLongestChain(vector<vector<int>>& pairs) {
         int n = pairs.size();
         vector<int> dp(n,1);
-        sort(pairs.begin(),pairs.end());
+        sort(pairs.begin(),pairs.end(),compare);
         int ans = 1;
         for(int j = 1; j < n; j++){
             for(int i = 0; i < j ; i++){
-                if(pairs[j][0] > pairs[i][1]){
-                    dp[j] = max(dp[j], dp[i] + 1);
+                if(pairs[j][0] > pairs[i][1] and dp[j]<=dp[i]){
+                    dp[j] = dp[i] + 1;
                 }
-                ans = max(ans,dp[j]);
             }
+            ans = max(ans,dp[j]);
         }
+        
         return ans;
+    }
+    //not essential but speeds up the solution a bit
+     static bool compare(vector<int>&a,vector<int>&b)
+    {
+        return b[1]>a[1];
     }
 };
