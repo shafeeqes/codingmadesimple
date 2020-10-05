@@ -67,3 +67,35 @@ public:
 };
 
 
+class Solution {
+public:
+    string frequencySort(string s) {
+      
+      unordered_map<char, int> M;
+      for(char c:s)
+        M[c]++;
+      
+      priority_queue< pair<char, int>, vector<pair<char, int>>,
+                      function<bool(pair<char, int>, pair<char, int>)>>
+        max_heap([](pair<char, int> a, pair<char, int> b){return a.second < b.second;});
+      
+      unordered_map<char, int>::iterator it = M.begin();
+      
+      while(it != M.end())
+        max_heap.push(*it++);
+      
+      int i = 0;
+      while(!max_heap.empty())
+      {
+        pair<char, int> p = max_heap.top();
+        int freq = p.second;
+        char c = p.first;
+        while(freq--)
+          s[i++] = c;
+        max_heap.pop();
+      }
+      
+      return s;
+    }
+};
+
