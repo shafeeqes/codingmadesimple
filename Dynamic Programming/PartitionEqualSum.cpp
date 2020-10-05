@@ -28,6 +28,7 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 
 class Solution {
 public:
+    unordered_map<int,unordered_map<int,bool>> dp;
     bool canPartition(vector<int>& A) {
      
         int total = 0;
@@ -37,29 +38,27 @@ public:
         
         if(total %2 != 0)
             return false;
-        unordered_map<string,bool> state;
-        return canPartition(A,0,0,total, state);
+        
+        return solve(A,0,total/2);
         
     }
-    bool canPartition(vector<int> &A, int index, int currSum, int total, unordered_map<string,bool> &state){
+    bool solve(vector<int> &A, int index, int sum){
         
-        string s = to_string(index);
-        s += to_string(currSum);
-        
-        //cout<<s<<endl;
-        
-        if(state.find(s)!= state.end()){
-            return state[s];
+        if(dp[index].find(sum)!= dp[index].end()){
+            return dp[index][sum];
         }
-        if(currSum *2 == total)
+        if(sum == 0)
             return true;
         
-        if(currSum > total/2 or index >= A.size())
+        if(sum < 0 or index == A.size())
             return false;
         
-        bool foundPartition = canPartition(A,index+1,currSum,total,state) or canPartition(A,index+1, currSum + A[index],total,state);
-        
-        state[s] = foundPartition;
-        return foundPartition;
+        for(int i = index; i < A.size(); i++){
+            dp[i][sum] = solve(A, i+1, sum-A[i]);
+            
+            if(dp[i][sum])
+               return 1;
+        }
+        return dp[index][sum] = 0;
     }
 };
