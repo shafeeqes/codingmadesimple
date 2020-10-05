@@ -51,6 +51,42 @@ Space: O( nm )
 
 We upper bound space by the number of subproblems we will story answers to. Whether we do (n + 1)(m + 1) or (n)(m) doesn't matter asymptotically.
 */
+/*
+eg: aab and azb
+
+lcs(aab,azb)
+-------------
+we compare a and a. same.
+so answer will be 1 + lcs(ab,zb)
+that is removing a from both.
+
+lcs (ab,zb)
+------------
+a and z are not same
+so answer will be max(lcs(a,zb) , lcs(ab,b))
+
+lcs(a,zb)
+----------
+no common, max(lcs(a,b), lcs(" ",b)
+both are zero. any char with empty string have zero in common
+
+lcs(ab,b)
+---------
+ a not equal to b. so max(lcs(b," "),lcs(b,b))
+                      = max(0,1)
+                      
+  this goes up so lcs(aab,azb) = + lcs(ab,zb) = 1 + max(lcs(a,zb) , lcs(ab,b)) = 1 +  max(0,1) = 2     
+  
+  
+  dp table
+  ----------
+  
+     " " a  z  b
+ " "  0  0  0  0
+ a    0  1  1  1
+ a    0  1  1  1
+ b    0  1  1  2
+*/
 
 
 class Solution {
@@ -61,7 +97,7 @@ public:
         int n = max(n1,n2);
         int dp[n1+1][n2+1];
         memset(dp,0,sizeof(dp));
-        
+        //the first row and first column will be zero because we are considering empty strings on both
         for(int i = 1; i< n1+1; i++){
             for(int j = 1; j< n2+1; j++){
                 if(s1[i-1] == s2[j-1]){
