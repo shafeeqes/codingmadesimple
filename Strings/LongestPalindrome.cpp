@@ -29,46 +29,38 @@ Explanation:
 Testcase 1: The longest palindrome string present in the given string is "aabbaa".
 */
 
-#include <iostream>
-using namespace std;
-#include<bits/stdc++.h>
-
-int expand(string s, int left,int right){
-    if(s.size()==0 or left>right)
-        return 0;
-    while(s[left] == s[right] and left>=0 and right<s.size()){
-        left--;
-        right++;
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        if(n == 0)
+            return "";
+        string ans;
+        int start = 0, end = 0;
+        int len = 1;
+        for(int i = 0; i< n; i++){
+            int len1 = expand(s, i, i);
+	        int len2 = expand(s, i, i+1);
+	        int len = max(len1, len2);
+            
+            //if current palindrome is longer than the previously saved
+            if(len > (end - start)){
+                start = i - ((len-1)/2);
+                end  = i + (len/2);
+            }
+        }
+        
+        return s.substr(start,end-start+1);
     }
-    return right-left-1;
-}
-int main() {
-	//code
-	int t;
-	cin>>t;
-	while(t--){
-	    string str;
-	    cin>>str;
-	    int n = str.size();
-	    int flag = 0;
-	    int start = 0, end = 0;
-	    for(int i=0; i<n; i++){
-	        int len1 = expand(str,i,i);
-	        int len2 = expand(str,i,i+1);
-	        int len = max(len1,len2);
-	        if (len > (end-start)){
-	            start = i - ((len-1)/2);
-	            end = i + (len/2);
-	            if(len>1)
-	                flag = 1;
-	        }
-	   }
-	   if (flag == 0){
-	       cout<<str.substr(0,1);
-	       break;
-	   }
-	   string ans = str.substr(start,end-start+1);
-	   cout<<ans<<endl;
-	}
-	return 0;
-}
+    
+    int expand(string s, int left, int right){
+        if(left > right){
+            return 0;
+        }
+        while(left >= 0 and right < s.size() and s[left] == s[right]){
+            left --;
+            right ++;
+        }
+        return right-left-1;
+    }
+};
