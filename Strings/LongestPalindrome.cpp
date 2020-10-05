@@ -64,3 +64,34 @@ public:
         return right-left-1;
     }
 };
+
+//Optimization
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        if(n < 2)
+            return s;
+       
+        int start = 0 , maxlen = 1;
+        int left = 0 , right = 0;
+        for(int i = 0; i< n -1 ;){   
+            left = i, right = i;
+		    while(right < n && s[right] == s[right+1])
+                ++right;
+		    i = right+1;
+            while(left >= 0 and right < s.size() and s[left] == s[right]){
+                left --;
+                right ++;
+            }
+            //if current palindrome is longer than the previously saved
+            if(right - left - 1 > maxlen){
+                maxlen = right-left-1;
+                start = left + 1;
+            }
+        }
+        return s.substr(start,maxlen);
+    }
+    
+};
