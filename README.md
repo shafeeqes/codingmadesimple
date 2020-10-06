@@ -33,3 +33,37 @@ Recursion:
 
 1.FloodFill.py
 
+
+
+Hashset:
+
+
+2sum.py
+4sum.cpp
+ColorfulNo.cpp
+
+DiffKII.py
+
+JewelsandStones.cpp
+
+LongestConsecutiveSequence.cpp
+
+LongestConsecutiveSequence.py
+
+LongestSubarraywithSum0.cpp
+
+MaxPointsinaLine.cpp
+
+RelativeSorting.cpp
+
+RottenOranges.cpp
+
+SortCharactersbyFrequency.cpp
+
+SubarraySumequalsK.cpp
+
+SudokuSolver.cpp
+
+ValidSudoku.cpp
+
+ValidSudoku.py
