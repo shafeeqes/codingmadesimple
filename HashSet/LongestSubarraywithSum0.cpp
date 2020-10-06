@@ -20,6 +20,40 @@ Constraints:
 -1000 <= A[i] <= 1000, for each valid i
 */
 
+//if the subarray is asked
+vector<int> Solution::lszero(vector<int> &A)
+{
+    if(A.size()==0)
+        return {};
+    //concept of prefix-sum and hashing
+    vector<int> ans;
+    unordered_map<int,int> m;//{prefixsum,index}
+    int sum = 0;
+    int start = 0, end = 0;
+    
+    m.insert({0,-1});//if first element is 0
+    
+    for(int i = 0; i < A.size(); i++)
+    {
+        sum += A[i];
+        if(m.find(sum)!=m.end())
+        {
+            if(i-m[sum] > end-start)//strictly greater as we want as left as possible
+            {
+                start = m[sum];
+                end = i;
+            }
+        }
+        else
+            m.insert({sum,i});
+    }
+    for(int i = start + 1; i <= end; i++)//all elements after first occurance of prefix sum
+        ans.push_back(A[i]);
+    return ans;
+}
+
+
+//if only length is asked
 
 int maxLen(int A[], int n)
 {
