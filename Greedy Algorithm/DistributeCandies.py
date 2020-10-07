@@ -45,7 +45,7 @@ Explanation 2:
         
         for i in range(1,n):
             if A[i] > A[i-1]:
-                candy[i] = max(candy[i],candy[i-1]+1)
+                candy[i] = candy[i-1]+1
         
         for i in range(n-2,-1,-1):
             if A[i] > A[i+1]:
