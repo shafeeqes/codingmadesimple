@@ -19,6 +19,46 @@ Each string consists only of '0' or '1' characters.
 1 <= a.length, b.length <= 10^4
 Each string is either "0" or doesn't contain any leading zero.
 */
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        
+        int n1 = a.size();
+        int n2 = b.size();
+        int carry = 0;
+        int i = n1-1;
+        int j = n2-1;
+    
+        stack<char> s;
+        while(i >=0 or j >=0){
+            int sum = carry;
+            if(i >= 0){
+                sum += a[i]-'0';
+                i--;
+            }
+            if(j >= 0){
+                sum += b[j] -'0';
+                j--;
+            }
+            s.push( sum % 2 + '0');
+            carry = sum/2;
+        }
+  
+        if(carry==1){
+            s.push('1');
+        }
+        string ans;
+        while(!s.empty()){
+            ans += s.top();
+            s.pop();
+        }
+        return ans;
+    }
+};
+
+
+
+//very naive solution
 
 class Solution {
 public:
