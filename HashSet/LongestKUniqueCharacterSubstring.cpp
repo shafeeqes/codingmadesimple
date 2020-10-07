@@ -61,6 +61,7 @@ int solution(string s,int k){
                 if(a[temp[0]-'a']==0){
                     count--;
                 }
+		    //a char queue might work better
                 temp = temp.substr(1,temp.size()-1);
             }
         }
