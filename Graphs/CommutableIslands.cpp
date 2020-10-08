@@ -1,3 +1,4 @@
+//Kruskal's algorithm
 /*
 
 There are A islands and there are M bridges connecting them. Each bridge has some cost attached to it.
