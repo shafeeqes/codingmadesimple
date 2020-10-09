@@ -25,6 +25,54 @@ All edges times[i] = (u, v, w) will have 1 <= u, v <= N and 0 <= w <= 100.
 
 */
 
+//Djikstra's algorithm
+
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int N, int K) {
+        
+        priority_queue < pair<int,int>, vector< pair<int,int> >, greater<pair<int,int>>> pq;
+        // push source node with time 0
+        pq.push({0,K});
+        
+        vector<int> time(N+1, INT_MAX);
+        time [K] = 0;
+        
+        unordered_map < int, vector <pair<int,int>>> hash;
+        
+        for(int i = 0; i < times.size(); i++){
+            hash[times[i][0]].push_back({times[i][1],times[i][2]});
+        }
+        
+        while(!pq.empty()){
+            
+            pair<int,int> curr_v= pq.top();
+            pq.pop();
+            
+            int u = curr_v.second;
+            
+            for(auto it = hash[u].begin(); it!= hash[u].end(); it++){
+                int v = it->first;
+                int wt = it->second;
+                
+                if(time[u] + wt < time[v]){
+                    time[v] = time[u] + wt;
+                    pq.push({time[v],v});
+                }
+            }
+        }
+        
+        int ans = 0;
+        for(int i = 1; i < N+1; i++){
+            if(time[i]>ans)
+                ans = time[i];
+        }
+        return ans == INT_MAX ? -1 : ans;
+    }
+};
+
+
+//Bellman Ford
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int N, int K) {
