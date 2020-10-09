@@ -77,6 +77,16 @@ public:
             int L = 0; 
             int R = i - 1; 
             
+            /*if we cant start and end at same time
+            change the code to,
+             if (jobs[mid].end < jobs[i].start) {
+                    prevprof = dp[mid]; 
+                    L = mid + 1; 
+                } else {
+                    R = mid - 1;
+                }
+            
+            */
             while(L <= R) {
                 int mid = L + (R - L)/2; 
                 if (jobs[mid].end > jobs[i].start) {
