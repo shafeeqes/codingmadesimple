@@ -49,14 +49,14 @@ Input: n = 4, headID = 2, manager = [3,3,-1,2], informTime = [0,0,162,914]
 Output: 1076
 */
 
-//dfs
+//dfs- fastest 
 
 class Solution {
 public:
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
         
         if (n == 1) return 0;
-         unordered_map<int, vector<int>> g; // g == graph
+         vector< vector<int>> g(n); // g == graph
         
         // build the directed graph...
         for (int i = 0; i < manager.size(); ++i) {
@@ -67,7 +67,7 @@ public:
         return dfs(headID, g, informTime);
     }
     
-    int dfs(int curr, unordered_map<int, vector<int>> &g ,vector<int>& informTime){
+    int dfs(int curr, vector<vector<int>> &g ,vector<int>& informTime){
         
         int maxTime = 0;
             
@@ -76,6 +76,45 @@ public:
         }
         return maxTime + informTime[curr];
     }
+};
+
+
+
+//bfs
+
+class Solution {
+public:
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        
+        if (n == 1) return 0;
+         vector< vector<int>> g(n); // g == graph
+        
+        // build the directed graph...
+        for (int i = 0; i < manager.size(); ++i) {
+            if (manager[i] == -1) continue;
+            g[manager[i]].push_back(i);
+        }
+        
+        queue<pair<int,int>> q;   //In a pair, first element is index and second element is time taken to reach this index
+        q.push({headID,0});   //Pushing the first node
+        
+        int maxTime = 0;
+        
+        while(!q.empty()){
+            pair<int,int> curr = q.front();
+            q.pop();
+            
+            for(int employee: g[curr.first]){
+                //time to reach the manager of the employee ( curr ) and time taken by him to inform the employee
+                int te = curr.second + informTime[curr.first];
+                q.push({employee, te});
+                if ( maxTime < te)
+                    maxTime = te;
+            }
+        }
+        return maxTime;
+    }
+    
 };
 
 
