@@ -24,6 +24,25 @@ The length of times will be in the range [1, 6000].
 All edges times[i] = (u, v, w) will have 1 <= u, v <= N and 0 <= w <= 100.
 
 */
+/*
+Bellman-Ford algorithm is a single-source shortest path algorithm, so when you have negative edge weight then it can detect negative cycles in a graph.
+
+The only difference between the two is that Bellman-Ford is also capable of handling negative weights whereas Dijkstra Algorithm can only handle positives.
+
+From wiki
+
+
+However, Dijkstra's algorithm greedily selects the minimum-weight node that has not yet been processed,
+and performs this relaxation process on all of its outgoing edges; in contrast, the Bellman–Ford algorithm 
+simply relaxes all the edges, and does this |V | − 1 times, where |V | is the number of vertices in the graph. 
+In each of these repetitions, the number of vertices with correctly calculated distances grows, from which it
+follows that eventually all vertices will have their correct distances. This method allows the Bellman–Ford 
+algorithm to be applied to a wider class of inputs than Dijkstra.
+
+Dijkstra is however generally considered better in the absence of negative weight edges, as a typical binary 
+heap priority queue implementation has O((|E|+|V|)log|V|) time complexity [A Fibonacci heap priority queue
+gives O(|V|log|V| + |E|)], while the Bellman-Ford algorithm has O(|V||E|) complexity
+*/
 
 //Djikstra's algorithm
 
