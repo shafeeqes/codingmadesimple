@@ -49,7 +49,34 @@ Input: n = 4, headID = 2, manager = [3,3,-1,2], informTime = [0,0,162,914]
 Output: 1076
 */
 
+//dfs
 
+class Solution {
+public:
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        
+        if (n == 1) return 0;
+         unordered_map<int, vector<int>> g; // g == graph
+        
+        // build the directed graph...
+        for (int i = 0; i < manager.size(); ++i) {
+            if (manager[i] == -1) continue;
+            g[manager[i]].push_back(i);
+        }
+        
+        return dfs(headID, g, informTime);
+    }
+    
+    int dfs(int curr, unordered_map<int, vector<int>> &g ,vector<int>& informTime){
+        
+        int maxTime = 0;
+            
+        for (int nxt : g[curr]){
+            maxTime = max(maxTime, dfs(nxt, g,informTime));
+        }
+        return maxTime + informTime[curr];
+    }
+};
 
 
 //Djikstra's algorithm -- really slow
