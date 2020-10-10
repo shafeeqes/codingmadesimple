@@ -34,6 +34,59 @@ Output: false
     Time Complexity - O(V + E)
 */
 
+
+
+class Solution {
+public:
+    vector<int> color;
+    vector<vector<int>> graph;
+    
+    bool possibleBipartition(int N, vector<vector<int>>& dislikes) {
+        
+        graph.resize(N+1);
+        color.resize(N+1, -1);
+        
+        for(auto edge:dislikes){
+            int v1 = edge[0];
+            int v2 = edge[1];
+            
+            graph[v1].push_back(v2);
+            graph[v2].push_back(v1);
+        }
+        
+        for(int node = 1; node <= N; node++){
+            if(color[node] == -1){
+                if(!check(node, 0))
+				    return false;
+            }
+        }
+        return true;
+        
+    }    
+    bool check(int node, int c){
+        
+        color[node] = c;
+        for(auto &child: graph[node])
+        {
+            if(color[child] == -1)
+            {
+                if(!check(child, 1 - c))
+                    return false;
+            }
+            else
+            {
+                if(color[child] == c)
+                    return false;
+            } 
+        }
+        return true;
+    }
+};
+
+
+
+
+//almost same
 class Solution {
 public:
     vector<int> color;
