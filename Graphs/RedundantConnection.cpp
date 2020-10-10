@@ -31,26 +31,26 @@ Every integer represented in the 2D-array will be between 1 and N, where N is th
 class Solution {
 public:
     vector<int> parent;
+    vector<int> rank;
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         
         int n = edges.size();
-
+        rank.resize(n+1,0);
  		parent.resize(n+1, 0);
  		for (int i = 0; i <= n; i++)
  			parent[i] = i;
         
         vector<int> ans(2,-1);
-        for(int i = 0; i< n; i++){
+        for(auto edge:edges){
             
-            int x = find( edges[i][0] );
-            int y = find( edges[i][1] );
+            int x = find( edge[0] );
+            int y = find( edge[1] );
             
             if( x != y){
-                parent[y] = x;
+                Union(x,y);
             }
             else{
-                ans[0] = edges[i][0];
-                ans[1] = edges[i][1];
+                return edge;
             }
         }
         return ans;  
@@ -62,6 +62,17 @@ public:
          parent[x] = find(parent[x]);
        return parent[x];
     
-    } 
+    }
+    //Union by rank
+    void Union(int x, int y) {
+        if (rank[x] < rank[y]) {
+            parent[x] = y;
+        } else if (rank[x] > rank[y]) {
+            parent[y] = x;
+        } else {
+            parent[y] = x;
+            rank[x]++;
+        }
+    }
    
 };
