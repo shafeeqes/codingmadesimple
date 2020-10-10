@@ -1,5 +1,5 @@
 /*
-Given a string, sort it in decreasing order based on the frequency of characters.
+Given a string, sort it in decreasing order based on the a.
 
 Example 1:
 
@@ -50,7 +50,8 @@ public:
             A.push_back(it);
         }
         sort(A.begin(),A.end(),cmp);
-        
+         //sort(A.begin(),A.end(), [](pair<char,int> a,pair<char,int> b) ->bool {return a.second > b.second;});
+         //sort(A.begin(),A.end(), [](pair<char,int> a,pair<char,int> b) {return a.second > b.second;});
         string ans = "";
         for(auto item:A){
             while(item.second--){
