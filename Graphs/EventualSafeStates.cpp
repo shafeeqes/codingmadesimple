@@ -44,6 +44,7 @@ public:
         if (dp[v])
  			return dp[v] == 1;
         
+       //dont want to visit this node again during the dfs
         dp[v] = -1;
         
         //if it is already a terminal node, then this loop wont be entered
