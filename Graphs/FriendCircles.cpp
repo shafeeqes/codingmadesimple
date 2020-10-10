@@ -69,9 +69,14 @@ public:
         
     }
     
-    int find( int x){
-        return parent[x] == x ? x : find(parent[x]);
-    }
+    int find (int x){
+        
+        //path compression
+        while (parent[x] != x) 
+            x = parent[x];
+        
+        return x;
+    } 
     
     void Union(int x, int y){
         int xp = find(x);
