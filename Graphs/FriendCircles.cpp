@@ -71,11 +71,10 @@ public:
     
     int find (int x){
         
-        //path compression
-        while (parent[x] != x) 
-            x = parent[x];
-        
-        return x;
+       if (parent[x] != x) 
+         parent[x] = find(parent[x]);
+       return parent[x];
+    
     } 
     
     void Union(int x, int y){
