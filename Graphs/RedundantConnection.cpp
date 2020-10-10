@@ -58,7 +58,11 @@ public:
     
     int find (int x){
         
-        return parent[x] == x ? x : find(parent[x]);
+        //path compression
+        while (parent[x] != x) 
+            x = parent[x];
+        
+        return x;
     } 
    
 };
