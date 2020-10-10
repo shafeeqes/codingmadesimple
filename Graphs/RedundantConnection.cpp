@@ -56,13 +56,12 @@ public:
         return ans;  
     }
     
-    int find (int x){
-        
-        //path compression
-        while (parent[x] != x) 
-            x = parent[x];
-        
-        return x;
+     int find (int x){
+      //path compression   
+       if (parent[x] != x) 
+         parent[x] = find(parent[x]);
+       return parent[x];
+    
     } 
    
 };
