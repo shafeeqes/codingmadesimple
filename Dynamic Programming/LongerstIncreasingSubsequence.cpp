@@ -82,6 +82,56 @@ We will store our answers for each of the n LNDS subproblems.
 */
 
 
+//O (nlogn)
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& A) {
+        int n = A.size();
+        if(n==0) return 0;
+        
+        vector<int> dp(n,0);
+        vector<int> c(n+1,0);
+        int ans = 1;
+        
+        int j = 1;
+        dp[0] = 1;
+        //auxilary array
+        c[1] = A[0];
+        
+        for( int i = 1; i < n; i++)
+        {
+            //if the current element is lower than the starting of the current LIS
+            if(A[i] < c[1])
+            {
+                c[1] = A[i];
+                dp[i] = 1;
+            }
+            //if A[i] is greater than the last element of c, extend c
+            else if (A[i] > c[j])
+            {
+                j++;
+                c[j] = A[i];
+                dp[i] = j;
+            }
+            else{
+                //returns the index of the first element in the range which is 
+                //greater than A[i]. NB: we started c from 1
+                int k = upper_bound(c.begin(),c.begin()+j, A[i]) - c.begin();
+                if(A[i] == c[k-1])
+                    continue;
+                c[k] = A[i];
+                //dp of this element will be only upto k
+                dp[i] = k;
+            }
+            if(dp[i] > ans)
+                ans = dp[i];
+        }
+     
+        return ans;
+    }
+};
+
 // O(n^2) solution
 
 class Solution {
