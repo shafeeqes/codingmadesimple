@@ -24,6 +24,36 @@ intervals[i][0] <= intervals[i][1]
 class Solution {
 public:
     
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        
+        sort(intervals.begin(),intervals.end());
+        vector<vector<int>> ans;
+        
+        int n = intervals.size();
+        if(n < 1)
+            return ans;
+        
+        ans.push_back(intervals[0]);
+        
+        for(int i = 1; i < n; i++ )
+        {   
+            if(ans.back()[1] < intervals[i][0])         //when overlapping don't occurs
+                ans.push_back(intervals[i]);
+
+            else if(ans.back()[1] < intervals[i][1])    //when overlapping occurs
+                ans.back()[1]=intervals[i][1];
+        }
+        
+        return ans;
+    }   
+};
+
+
+//lengthy solution using union find
+
+class Solution {
+public:
+    
     vector<int> parent;
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         
