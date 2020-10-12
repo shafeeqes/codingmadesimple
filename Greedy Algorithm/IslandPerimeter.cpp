@@ -30,6 +30,7 @@ col == grid[i].length
 grid[i][j] is 0 or 1.
 */
 
+// O(n)
 class Solution {
 public:
     int islandPerimeter(vector<vector<int>>& A) {
@@ -57,5 +58,30 @@ public:
         
         return p;
         
+    }
+};
+//same O(n)
+
+class Solution {
+public:
+    int islandPerimeter(vector<vector<int>>& grid) {
+	
+        int row = grid.size(), col=grid[0].size();
+        int cnt = 0;
+        for(int i=0;i<row;++i)
+        {
+            for(int j=0;j<col;++j)
+            {
+                if(grid[i][j])
+                {
+                    cnt += 4;
+                    if(i>0 && grid[i-1][j])
+                        cnt -= 2;
+                    if(j>0 && grid[i][j-1]) 
+                        cnt -= 2;
+                }
+            }
+        }
+        return cnt;
     }
 };
