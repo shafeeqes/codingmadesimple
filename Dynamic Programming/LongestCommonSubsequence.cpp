@@ -94,7 +94,6 @@ public:
     int longestCommonSubsequence(string s1, string s2) {
         int n1 = s1.size();
         int n2 = s2.size();
-        int n = max(n1,n2);
         int dp[n1+1][n2+1];
         memset(dp,0,sizeof(dp));
         //the first row and first column will be zero because we are considering empty strings on both
