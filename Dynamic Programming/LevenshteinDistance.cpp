@@ -91,10 +91,10 @@ dp[i-1]j-1]     .   dp[i-1][j]
 
 class Solution {
 public:
-    int minDistance(string initialw, string finalw) {
+    int minDistance(string start, string target) {
         
-        int c = initialw.size();
-        int r = finalw.size();
+        int c = start.size();
+        int r = target.size();
         
         int dp[r+1][c+1];
         
@@ -107,7 +107,7 @@ public:
         
         for(int i = 1; i < r + 1; i++){
             for(int j = 1; j < c + 1; j++){
-                if(initialw[j-1] == finalw[i-1]){
+                if(start[j-1] == target[i-1]){
                     //same as the subproblem without these letters
                     dp[i][j] = dp[i-1][j-1]; 
                 }
