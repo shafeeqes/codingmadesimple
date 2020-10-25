@@ -46,7 +46,71 @@ Explanation 2:
  [1 2 10 4 2 1] is the longest subsequence.
  */
  
- 
+//O(nlogn) solution
+//See longest increasing subsequence for explanation
+
+int Solution::longestSubsequenceLength(const vector<int> &A) {
+    
+    int n = A.size();
+    
+    if(n == 0)  return 0;
+    
+    vector<int> lis(n,1);
+    vector<int> lds(n,1);
+    vector<int> c(n);
+    
+    c[1] = A[0];
+    int j = 1;
+    for(int i = 1; i < n; i++){
+        if(A[i] < c[1]){
+            c[1] = A[i];
+            lis[i] = 1;
+        }
+        else if(A[i] > c[j]){
+            j++;
+            c[j] = A[i];
+            lis[i] = j;
+        }
+        else{
+            int k = upper_bound(c.begin(),c.begin()+j, A[i]) - c.begin();
+            if(A[i] == c[k-1])
+                continue;
+            c[k] = A[i];
+            lis[i] = k;
+        }
+    }
+    
+    c.clear();
+    c[1] = A[n-1];
+    j = 1;
+    for(int i = n-2; i >= 0; i--){
+        if(A[i] < c[1]){
+            c[1] = A[i];
+            lds[i] = 1;
+        }
+        else if(A[i] > c[j]){
+            j++;
+            c[j] = A[i];
+            lds[i] = j;
+        }
+        else{
+            int k = upper_bound(c.begin(),c.begin()+j, A[i]) - c.begin();
+            if(A[i] == c[k-1])
+                continue;
+            c[k] = A[i];
+            lds[i] = k;
+        }
+    }
+    
+    
+    int ans=0;
+    for(int i = 0; i < n; i++)
+        ans=max(ans, lis[i] + lds[i]-1);
+    
+    return ans;
+}
+
+ //O(n^2) solution
  int Solution::longestSubsequenceLength(const vector<int> &A) {
     int n = A.size();
 
