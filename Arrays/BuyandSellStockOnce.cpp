@@ -16,7 +16,27 @@ Input: [7,6,4,3,1]
 Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 */
+class Solution {
+public:
+    int maxProfit(vector<int>& A) {
+        
+        int n = A.size();
+        if(n<2) return 0;
+        
+        int maxprofit = 0, profit;
+        int minval = A[0];
+        for(int i = 1; i < n; i++){
+            profit = A[i] - minval;
+            if(profit > maxprofit)
+                maxprofit = profit;
+            minval = min(minval,A[i]);    
+        }
+        
+        return maxprofit;
+    }
+};
 
+//same solution
 class Solution {
 public:
     int maxProfit(vector<int>& A) {
