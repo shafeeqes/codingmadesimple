@@ -37,3 +37,19 @@ public:
         
     }
 };
+
+
+int Solution::jump(vector<int> &A) {
+    int currP = 0, explored = 0, index = 0, N = A.size(), nJumps = 0;
+    
+    while(currP < N-1){
+        explored = currP;
+        ++nJumps;
+        for(; index <= explored; ++index){
+            currP = max(currP, A[index]+index);        
+        }
+        if(currP == explored) return -1;
+    }
+    
+    return nJumps;
+}
