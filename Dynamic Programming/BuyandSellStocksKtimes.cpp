@@ -52,7 +52,9 @@ int Solution::solve(vector<int> &A, int k) {
 /*
 
 T[i][j] = max( T[i][j-1],  // Not transacting on jth day.
-              T[i-1][m] + price[j] - price[m] m = 0....j-1 //best you can get by transacting on j-1th day.
+              T[i-1][m] + price[j] - price[m] m = 0....j-1 //best you can get by transacting on mth day.
+                          T[i-1][m] is the profit till mth day and i-1th transaction. and we do this transaction on jth day and transaction no = i
+                                              so that we add to the profit the difference in the prices between today and mth day
               
 this can be written as T[i][j] = max(T[i][j-1], A[j] + prevdiff) //so we can save on an inner loop
                                   prevdiff = max(prevdiff, T[i-1][j-1] - A[j-1])
