@@ -60,7 +60,8 @@ public:
                 int curr_coin = coins[i-1];
                 if(curr_coin <= j){
 		     //total ways is equal to ways to make the difference of current amount and 
-		     //current coin with the current coin present + ways to make this amount with present coins already
+		     //current coin with the current coin present (because if we choose the current coin
+		     //then we need to make only the balance amount ) + ways to make this amount with present coins already
                     dp[i][j] = dp[i-1][j] + dp[i][j-curr_coin];
                 }
 		//if curr_coin is greater than current amount then we just skip and take the amount without this coin from above    
