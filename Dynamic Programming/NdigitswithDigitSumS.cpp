@@ -33,6 +33,7 @@ int Solution::solve(int n, int s) {
             if(j>=9) 
               k=j-9;
             for(;k<=j;k++)
+                //add the ways of making all the numbers up to current num with one digit less
              dp[i][j]=(dp[i][j]+dp[i-1][k])%1000000007;
         }
     }
