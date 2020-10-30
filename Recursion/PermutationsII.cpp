@@ -14,6 +14,13 @@ Example 2:
 
 Input: nums = [1,2,3]
 Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
+
+Backtracking is a nightmare for this problem.
+
+The solution of "backtracking" is not efficient in spece since its creating arrays memories for each 
+depth of the recursion function. If you do not pass by value, the swap action will disturb the sorted 
+sequence and you are going to meet repeating answers.
 */
 
 class Solution {
