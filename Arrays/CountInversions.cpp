@@ -30,6 +30,74 @@ Explanation:
 Testcase 1: The sequence 2, 4, 1, 3, 5 has three inversions (2, 1), (4, 1), (4, 3).
 */
 
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+
+void merge(vector<int> &A, int l, int r, long long int &count){
+    
+    int m = l +(r- l)/2;
+    int i = l;
+    int j = m + 1;
+    
+    vector<int> ans;
+    
+    while(i <= m and j <= r){
+        if(A[i] > A[j]){
+            count += m - i +1;
+            ans.push_back(A[j]);
+            j++;
+        }else{
+            ans.push_back(A[i]);
+            i++;
+        }
+    }
+    while(i <= m){
+        ans.push_back(A[i]);
+        i++;
+    }
+    while(j <= r){
+        ans.push_back(A[j]);
+        j++;
+    }
+    
+    for(int k = l; k <=r; k++){
+        A[k] = ans[k-l];
+    }
+}
+void mergesort(vector<int> &A, int l, int r, long long int &count){
+    
+    if(l >= r)
+        return;
+    int m = l + (r - l)/2;
+    
+    mergesort(A, l, m, count);
+    mergesort(A, m+1, r, count);
+    
+    merge(A, l, r, count);
+}
+
+int main() {
+	//code
+	int t;
+	cin>>t;
+	while(t--){
+	    int N;
+	    cin>>N;
+	    vector<int> A;
+	    for(int i=0;i<N;i++){
+	        int temp;
+	        cin>>temp;
+	        A.push_back(temp);
+	    }
+	    long long int count = 0;
+	    mergesort(A,0,N-1,count);
+	    cout<<count<<endl;
+	}
+	return 0;
+}
+
+
 
 using namespace std;
 #include<bits/stdc++.h>
