@@ -12,40 +12,59 @@ Left view of following tree is 1 3 7 8.
    \
      8   
   */
-/* A binary tree node has data, pointer to left child
-   and a pointer to right child  
-struct Node {
-    int data;
-    Node *left;
-    Node *right;
-    Node(int val) {
-        data = val;
-        left = right = NULL;
-    }
-};
-*/
+
+/*
+Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+Example:
+
+Input: [1,2,3,null,5,null,4]
+Output: [1, 3, 4]
+Explanation:
+
+   1            <---
+ /   \
+2     3         <---
+ \     \
+  5     4       <---
+  */
+
 //Time Complexiy: O(n)
 //Space complexity: O(n)
-vector<int> rightView(Node *root)
-{
-    vector<int> ans;
-    if(root == NULL)
-        return ans;
-    queue<Node*> q;
-    q.push(root);
-    
-    while(!q.empty()){
-        int size = q.size();
-        for(int i =0; i<size; i++){
-            Node *curr = q.front();
-            q.pop();
-            if(i==0)
-                ans.push_back((curr->data));
-            if(curr->left)
-                q.push(curr->right);
-            if(curr->right)
-                q.push(curr->left);
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        if(root == NULL)
+            return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while(!q.empty()){
+            int size = q.size();
+            for(int i =0; i<size; i++){
+                TreeNode *curr = q.front();
+                q.pop();
+                if(i==0)
+                    ans.push_back((curr->val));
+                if(curr->right)
+                    q.push(curr->right);
+                if(curr->left)
+                    q.push(curr->left);
+            }
         }
+        return ans;
     }
-    return ans;
-}
+};
