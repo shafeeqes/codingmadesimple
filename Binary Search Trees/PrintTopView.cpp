@@ -12,6 +12,7 @@ A node is included in top view if it can be seen when we look at the tree from t
 
 For the above tree, the top view is 5 8 20 22 25.
 */
+/*
 struct Node
 {
     int data; //data of the node
