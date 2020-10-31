@@ -149,3 +149,79 @@ int main()
 
     return 0;
 }
+
+
+
+
+//
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/*
+ * Complete the downToZero function below.
+ */
+int downToZero(int num) {
+    
+    unordered_set < int> memo;
+    int count = 0;
+
+    queue<pair<int,int>> q;
+    q.push({num,0});
+
+    while(!q.empty()){
+        int n = q.front().first;
+        count = q.front().second;
+        q.pop();
+
+        if(n <= 1){
+            if (n==1){
+                count += 1;
+            }
+            break;
+        }
+
+        if(memo.find(n-1) == memo.end()){
+            memo.insert(n-1);
+            q.push({n-1, count + 1});
+        }
+        for(int i = sqrt(n); i >= 1; i--){
+            int factor;
+            if(n%i == 0){
+                factor = max(int(n/i), i);
+            }
+            if(memo.find(factor) == memo.end()){
+                memo.insert(factor);
+                q.push({factor, count + 1});
+            }
+        }
+
+    }
+    
+    return count;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int q;
+    cin >> q;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    for (int q_itr = 0; q_itr < q; q_itr++) {
+        int n;
+        cin >> n;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        int result = downToZero(n);
+
+        fout << result << "\n";
+    }
+
+    fout.close();
+
+    return 0;
+}
+
