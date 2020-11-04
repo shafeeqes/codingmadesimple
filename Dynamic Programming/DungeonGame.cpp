@@ -41,40 +41,31 @@ public:
         int dp[r][c];
         memset(dp, 0, sizeof(dp));
         
+         //we do bottom up dp
+         //if the destination is negative, we keep that value, or if its positive, we set it as zero
+         // zero implies we do not need any health in the current cell to succesfully reach the goal
         dp[r-1][c-1] = A[r-1][c-1] <= 0 ? A[r-1][c-1]: 0;
         
+        // for the right most col and bottom most row there is only one way to reach the next cell,
+        //so we update accordingly
         for(int i = r-2; i >= 0; i--){
-            int reqPower = dp[i+1][c-1] + A[i][c-1];
-            if( reqPower <= 0){
-                dp[i][c-1] = reqPower;
-            }
-            else{
-                dp[i][c-1] = 0;
-            }
+            dp[i][c-1] = min(0, dp[i+1][c-1] + A[i][c-1]);
         }
         
         for(int j = c-2; j >= 0; j--){
-            int reqPower = dp[r-1][j+1] + A[r-1][j];
-            if( reqPower <= 0){
-                dp[r-1][j] = reqPower;
-            }
-            else{
-                dp[r-1][j] = 0;
-            }
+            dp[r-1][j] = min(0, dp[r-1][j+1] + A[r-1][j]);
         }
         
+        // for all other cells, we check for the max of dps of next cell to the right and next
+        // cell to the down, and we add the current cell health requirement, if it is less than zero
+        // we keep the value or else we set it to zero
         for(int i = r-2; i >= 0; i--){
             for( int j = c-2; j >= 0; j--){
-                int reqPower =  max(dp[i+1][j], dp[i][j+1]) + A[i][j];
-                if( reqPower <= 0){
-                    dp[i][j] = reqPower;
-                }
-                else{
-                    dp[i][j] = 0;
-                }
+                dp[i][j] = min(0, max(dp[i+1][j], dp[i][j+1]) + A[i][j]);
             }
         }
         
+         //min health is one, so we add it to the abs value of dp[0][0]
         return abs(dp[0][0]) + 1;
     }
 };
