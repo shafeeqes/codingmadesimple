@@ -13,6 +13,20 @@ Input: arr[] = {1, 1, 1, 1}, X = 1
 Output: 4
 */
 
+// O(s) space
+int subsetSum(vector<int>& nums, int s) {
+        int dp[s + 1] = { 0 };
+        dp[0] = 1;
+        for (int n : nums)
+            for (int i = s; i >= n; i--)
+                dp[i] += dp[i - n];
+        return dp[s];
+}
+
+
+
+//almost same
+//O(n*s) space
 class Solution{
 
 	public:
