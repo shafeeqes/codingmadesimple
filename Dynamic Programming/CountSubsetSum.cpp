@@ -16,9 +16,10 @@ Output: 4
 class Solution{
 
 	public:
-	int countSubset(int arr[], int sum) 
+	int countSubset(vector<int> arr, int sum) 
         {// Calculate sum of all elements 
 		
+		int n = arr.size();
 		// Create an array to store results of subproblems 
 		int dp[n+1][sum+1] = {0}; 
 
@@ -46,7 +47,7 @@ class Solution{
 		    } 
 		} 
     
-        	return dp[sum]; 
+        	return dp[n][sum]; 
 	}
 	
 };
