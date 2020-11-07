@@ -50,7 +50,7 @@ class Solution{
 		// Fill the partition table in bottom up manner 
 		for (int i = 1; i <= n; i++) 
 		{ 
-		    for (int j = 1; j <= sum; j++) 
+		    for (int j = 0; j <= sum; j++) 
 		    { 
 			// If i'th element is excluded 
 			dp[i][j] = dp[i-1][j]; 
