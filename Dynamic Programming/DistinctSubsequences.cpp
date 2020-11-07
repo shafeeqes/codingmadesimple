@@ -40,42 +40,45 @@ Explanation 2:
         
     Note: "_" marks the removed character.
     -*/
-    
-    int Solution::numDistinct(string start, string target) {
-    int r = target.size();
-    int c = start.size();
-    
-    int dp[r+1][c+1];
-    memset(dp,0,sizeof(dp));
-    
-    //with empty string as start you cannot make any target
-    //so first column is zero
-    for(int i = 0; i < r+1; i++){
-        dp[i][0] = 0;
-    }
-    
-    //with empty string as target, for any source you can make target in one way
-    //so first row is 1
-    
-    for(int i = 0; i < c+1; i++){
-        dp[0][i] = 1;
-    }
-    
-    for(int i = 1; i < r+1; i++){
-        for(int j = 1; j < c+1; j++){
-            //if the current start char is not equal to target char
-            //then the ans will be same as without this start char
-            if(start[j-1] != target[i-1]){
-                dp[i][j] = dp[i][j-1];
-            }
-            //if the current source and target char are same, then the total no of ways
-            //will be the no of ways in which the current target could have been made without
-            // the current source + the no of ways in which the previous target has been made
-            // from previous source, ie. the diagonally previous element
-            else{
-                dp[i][j] = dp[i][j-1] + dp[i-1][j-1];
+
+class Solution {
+public:
+    int numDistinct(string start, string target) {
+        int r = target.size();
+        int c = start.size();
+
+        int dp[r+1][c+1];
+        memset(dp,0,sizeof(dp));
+
+        //with empty string as start you cannot make any target
+        //so first column is zero
+        for(int i = 0; i < r+1; i++){
+            dp[i][0] = 0;
+        }
+
+        //with empty string as target, for any source you can make target in one way
+        //so first row is 1
+
+        for(int i = 0; i < c+1; i++){
+            dp[0][i] = 1;
+        }
+
+        for(int i = 1; i < r+1; i++){
+            for(int j = 1; j < c+1; j++){
+                //if the current start char is not equal to target char
+                //then the ans will be same as without this start char
+                if(start[j-1] != target[i-1]){
+                    dp[i][j] = dp[i][j-1];
+                }
+                //if the current source and target char are same, then the total no of ways
+                //will be the no of ways in which the current target could have been made without
+                // the current source + the no of ways in which the previous target has been made
+                // from previous source, ie. the diagonally previous element
+                else{
+                    dp[i][j] = dp[i][j-1] + dp[i-1][j-1];
+                }
             }
         }
+        return dp[r][c];
     }
-    return dp[r][c];
-}
+};
