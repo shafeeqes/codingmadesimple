@@ -1,4 +1,8 @@
+// /https://www.hackerearth.com/practice/algorithms/dynamic-programming/introduction-to-dynamic-programming-1/practice-problems/algorithm/avoid-traps-0b92455e/
+
 /*
+
+
 // Sample code to perform I/O:
  
 #include <iostream>
