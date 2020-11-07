@@ -60,6 +60,9 @@ using namespace std;
 
 bool helper(vector<int> graph[], vector<int> &visited, int node){
     
+ //Graph coloring: 0->not visited...1->visited, processing...2->visited & processed
+ //here we return true when a processed node is again encountered
+ // in directed, we return true when a currently processing node is encountered
     if(visited[node] == 2){
         return true;
     }
