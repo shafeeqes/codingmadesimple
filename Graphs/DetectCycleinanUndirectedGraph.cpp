@@ -42,7 +42,9 @@ Testcase 2: There is a graph with 3 vertices and 3 edges from 0 to 1, 1 to 2 and
 Testcase 3: There is a cycle in the given graph formed by vertices 2, 3 and 4.
 
 */
-
+//O(V + E) time
+ 
+ 
 // { Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;
