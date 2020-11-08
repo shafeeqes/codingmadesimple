@@ -38,7 +38,60 @@ There will not be any duplicated flights or self cycles.
 
 */
 
+class Solution {
+public:
+    
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+        
+        vector<vector<pair<int,int>>> graph(n);
+        vector<int> dist(n, INT_MAX);
+    
+        for(auto flight: flights){
+            int u = flight[0];
+            int v = flight[1];
+            int pathcost = flight[2];
+            graph[u].push_back({v,pathcost});
+        }
+    
+        queue<pair<int,int>> q;
+        
+        q.push({src, 0});
+        dist[src] = 0;
+        // normal BFS traversal
+        k++;
+        while( k--){
+            int size = q.size();
+            for(int i = 0; i < size; i++){
+                int u = q.front().first;
+                //note: we are using the prev pushed distance
+                //not dist[u] at present, because while relaxing some
+                //edges, this dist[u] can change and mess up the answer
+                int d = q.front().second;
+                q.pop();
+            
+                // traverse for the neighbors of u
+                for(auto x : graph[u]){
+                    // x = {v, wt}
+                    int v = x.first;
+                    int wt = x.second;
+                    if(dist[v] > d + wt){
+                        dist[v] = d + wt;
+                        q.push({v,dist[v]});
+                    }
+                }
+            }
+        }
+        return dist[dst] == INT_MAX ? -1: dist[dst];
+    }
+    
+    
+};
 
+//much slower
 class Solution {
 public:
     vector<vector<int>> graph;
