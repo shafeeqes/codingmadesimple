@@ -42,46 +42,50 @@ There will not be any duplicated flights or self cycles.
 class Solution {
 public:
     vector<vector<int>> graph;
+    vector<vector<int>> cost;
     int minCost = INT_MAX;
     vector<bool> visited;
+    
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
         
         ios_base::sync_with_stdio(false);
         cin.tie(NULL);
         cout.tie(NULL);
         
-        graph.resize(n, vector<int>(n,-1));
+        graph.resize(n);
+        cost.resize(n + 1, vector<int> (n+1));
+        
         for(auto flight: flights){
             int u = flight[0];
             int v = flight[1];
-            int cost = flight[2];
-            graph[u][v] = cost;
+            int pathcost = flight[2];
+            graph[u].push_back(v);
+            cost[u][v] = pathcost;
         } 
         visited.resize(n, false);
         dfs(0, src, dst, K, -1, visited);
         return minCost == INT_MAX ? -1: minCost;
     }
     
-    void dfs(int cost, int curr, int dest, int K, int stops, vector<bool> &visited){
+    void dfs(int curr_cost, int curr, int dest, int K, int stops, vector<bool> &visited){
         
-        
+        if(curr_cost > minCost){
+            return;
+        }
         if(curr == dest){
-            minCost = min(minCost, cost);
+            minCost = min(minCost, curr_cost);
         }
         if(stops == K){
             return;
         }
         
-        if(cost > minCost){
-            return;
-        }
-        
         visited[curr] = true;
         for(int i = 0; i < graph[curr].size(); i++){
-            int path = graph[curr][i];
-            if(path < 0 or visited[i])
+            int v = graph[curr][i];
+            if(visited[v])
                 continue;
-            dfs(cost + path, i, dest, K, stops + 1, visited);
+            int pathcost = cost[curr][v];
+            dfs(curr_cost + pathcost, v, dest, K, stops + 1, visited);
         }
         visited[curr] = false;
     }
