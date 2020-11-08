@@ -2,6 +2,8 @@
 The shortest path problem is about finding a path between  vertices in a graph such that the total sum of the edges weights is minimum.
 
 Djikstra's Algo cannot find negative edge cycle. Bellman Ford Algo can
+TC of BF Algo : O(E*V)
+TC of Djikstra's : O(E* logV)
 This problem could be solved easily using (BFS) if all edge weights were (+ve), but here weights can take any value. 
 Three different algorithms are discussed below depending on the use-case.
 */
