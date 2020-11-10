@@ -30,6 +30,36 @@ Note that, we have only these three cases for calculating factors of y since the
 had more than two prime factors, one of them would surely have been less than equal to n(1/3), and hence it would be included in x and not in y.
 
 */
+
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int divs[int(1e6)+5];
+int cnt[int(1e6)+5];
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int n;
+    cin>>n;
+    for (int i=1; i<=n; i++) {
+        for (int j=i; j<=n; j+=i)
+            divs[j] += 1;
+    }
+    cnt[1] = 1;
+    for (int i=2; i<=n; i++) {
+        if ((divs[i] & (divs[i] - 1)) != 0) {
+            cnt[i] = cnt[i-1];
+            continue;
+        }
+        cnt[i] = cnt[i-1] + 1;
+    }
+    
+    cout<<cnt[n]<<" ";
+
+}
+
+
+
 // C++ program to count distinct divisors 
 // of a given number n 
 #include <bits/stdc++.h> 
