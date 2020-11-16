@@ -19,67 +19,107 @@ int main() {
 */
  
 // Write your code here
+
+#include <iostream>
 #include<bits/stdc++.h>
 using namespace std;
- 
-vector<int> A(100001);
-void SieveOfEratosthenes(int n) { 
-    vector<bool> prime(n+1,true);    
-    for (int p=2; p*p<=n; p++) {  
-        if (prime[p] == true) { 
-            for (int i=p*p; i<=n; i += p) 
-                prime[i] = false; 
-        } 
-    } 
-	A[0]=0;
-	A[1]=0;
-    for (int p=2; p<=n; p++) {
-       	if (prime[p])
-    		A[p]=A[p-1]+1;
-		else
-			A[p]=A[p-1];
+
+
+vector<int> SieveofEratosthenes(int N){
+	vector<bool> prime(N+1, true);
+	vector<int> v(N,0);
+	prime[0] = false;
+	prime[1] = false;
+
+	for(int i = 2; i*i <= N; i++){
+		if(prime[i]){
+			for(int k = i*i; k <= N; k += i){
+				prime[k] = false;
+			}
+		}
 	}
+
+	v[0] = 0;
+	v[1] = 0;
+
+	for(int i = 2; i <= N; i++){
+		v[i] = v[i-1];
+		if(prime[i])
+			v[i] += 1;
+	}
+
+	return v;
 }
- 
+
+
 bool isSpecial(int r1, int r2, int A, int i){
-	if(A*r2>=i*r1)
+	if(A * r2 >= i*r1)
 		return true;
 	return false;
 }
- 
+
+int solve(string s, int r1, int r2, vector<int> &v, int n){
+	
+	vector<int> dp(n+1,INT_MAX);
+	dp[0] = 0;
+	dp[1] = 0;
+	
+	for(int i = 1; i < n + 1; i++){
+		//if dp[i] == INT_MAX it cannot be reached. 
+		if(s[i] == '#' && dp[i]!=INT_MAX){
+			if(i+1 < n+1 and s[i+1] == '#'){
+				dp[i+1] = min(dp[i+1], dp[i] + 1);
+			}
+			if(i+2 < n+1 and s[i+2] == '#'){
+				dp[i+2] = min(dp[i+2], dp[i] + 1);
+			}
+			if(i + v[i] < n+1 and isSpecial(r1, r2, v[i], i) and s[i+v[i]] == '#'){
+				dp[i + v[i]] = min(dp[i + v[i]], dp[i] + 1);
+			}
+		}
+	}
+
+	/*for(int i:dp){
+		cout<<i<<" ";
+	}*/
+
+	if(dp[n] == INT_MAX)
+		return -1;
+	else
+		return dp[n];
+}
+
 int main(){
 	ios::sync_with_stdio(0);
   	cin.tie(0);
-	int T;
-	cin>>T;
-	SieveOfEratosthenes(100000);
-	while(T){
-		int r1,r2,n;
-		string cells;
-		cin>>r1>>r2>>n>>cells;
-		cells=" "+cells;
-		vector<int> dp(n+1,INT_MAX);
-		if(cells[1]=='*' || cells[n]=='*'){
+
+	int t;
+	cin>>t;
+	
+	vector<int> A = SieveofEratosthenes(100001);
+
+	while(t--){
+		int r1, r2;
+		cin>>r1>>r2;
+
+		int n;
+		cin>>n;
+		string s;
+		cin>> s;
+
+		int ans;
+		s = " " + s;
+		if(s[1] == '*' or s[n] == '*'){
+			ans = -1;
 			cout<<"No way!"<<endl;
 		}
 		else{
-			dp[0]=0;
-			dp[1]=0;;
-			for(int i=1;i<=n;i++){
-				if(cells[i]!='*' && dp[i]!=INT_MAX){
-					if(i+1<=n && cells[i+1]!='*')
-						dp[i+1]=min(dp[i+1],dp[i]+1);
-					if(i+2<=n && cells[i+2]!='*')
-						dp[i+2]=min(dp[i+2],dp[i]+1);
-					if(isSpecial(r1,r2,A[i],i) && i+A[i]<=n && cells[i+A[i]]!='*')
-						dp[i+A[i]]=min(dp[i+A[i]],dp[i]+1);
-				}
-			}
-			if(dp[n]!=INT_MAX && dp[n]>=0)
-				cout<<dp[n]<<endl;
-			else	
+			ans = solve(s,r1,r2,A,n);
+
+			if(ans > 0)
+				cout<<ans<<endl;
+			else
 				cout<<"No way!"<<endl;
 		}
-		T--;
 	}
-}
+} 
