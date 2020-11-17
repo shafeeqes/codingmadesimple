@@ -1,4 +1,4 @@
-/*
+"""
 
 I have been given the total money I have. Now I know the cost it takes to write down each digit (1 to 9). 
 So how to create a maximum number out of it? Is there any dynamic programming approach for this problem?
@@ -11,8 +11,8 @@ output:33
 
 */
 
-
-/*
+"""
+"""
 
 I don't think you need dynamic programming, just do the following:
 
@@ -45,9 +45,7 @@ Running time:
 
 O(n) (with or without the optimization, since 9 is constant)
 
-*/
-
-
+"""
 
 total_money = 2   
     
